@@ -1,0 +1,280 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1265\cocoasubrtf210
+{\fonttbl\f0\froman\fcharset0 TimesNewRomanPSMT;}
+{\colortbl;\red255\green255\blue255;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\deftab708
+\pard\pardeftab708\ri-386
+
+\f0\fs20 \cf0 <!DOCTYPE html>\
+<html>\
+    <head>\
+        <title>MOOOOOTS</title>\
+        <meta charset="UTF-8">\
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">\
+        <script src="pixi.min.js"></script>\
+<style>\
+            body, html \{\
+                height: 100%;\
+                display: grid;\
+                border: 0px;\
+                margin: 0px;\
+            \}\
+            canvas \{\
+                margin: auto;\
+            \}\
+        </style>\
+    </head>\
+    <body>\
+    </body>\
+</html>\
+\
+\
+\
+document.addEventListener("DOMContentLoaded", ready); // on attend que tout sois pr\'eat\
+\
+var app\'a0; // global\'a0!\
+function ready()\
+\{\
+   app = new PIXI.Application(\{width: 1000, height: 1000\});\
+    var txt = PIXI.Texture.fromImage('canard.png');\
+    var canard = new PIXI.Sprite(txt);\
+     canard.interactive = true;\
+    app.stage.addChild(canard);\
+\}\
+\
+\
+\
+// fonction qui renvoie un nombre entre [min,max]\
+function rand(min, max)\
+\{\
+    return Math.floor(Math.random() * (max - min + 1) + min);\
+\}\
+\
+function createSprite(texture, x, y, sprite)\
+\{\
+    sprite = new PIXI.Sprite(txt);\
+    sprite.x = x;\
+    sprite.y = y;\
+    sprite.interactive=true\'a0;\
+    app.stage.addChild(sprite);\
+    return sprite;\
+\}\
+\
+ var txt = PIXI.Texture.fromImage('canard.png');\
+var TabCanard=[]\
+for(var i=0;i<200;i++)\
+	TabCanard.push(createSprite(txt,rand(0,1000),rand(0,1000)\'a0);\
+\
+\
+\
+    var debutb = +new Date(); // TIPS\'a0! + permet de transformer directement en nombre\
+    app.ticker.add(function ()\
+    \{\
+        var d = +new Date() - debutb;\
+        if (d > 50 && TabCanard.length > 0)\
+        \{\
+            var aux = TabCanard.pop();\
+            app.stage.removeChild(aux); // +de 50 ms\'a0! Quel horreur\'a0! Retirons donc un canard\
+        \}\
+        for (var i = 0; i < TabCanard.length; i++)\
+        \{\
+            var c = TabCanard[i];\
+            c.x = c.x + rand(0, 4);  // le canard va de gauche \'e0 droite\
+            c.y = c.y - rand(-2, 2);  // et flottille un peu, pour \'e9viter le chasseur\
+            if (c.x >1000 )\
+            \{ // le canard a disparu, on l'affiche \'e0 l'\'e9cran\'a0!\
+                c.x =  rand(-10, 1000);\
+                c.y =  rand(-10, 1000);\
+            \}\
+        \}\
+        debutb = +new Date();\
+    \});\
+\
+\
+\
+\
+sprite.on('pointerdown', function () \{\
+	// mettre le code ici\
+    \});\
+\
+Notre fonction de cr\'e9ation de canard est donc maintenant\'a0:\
+\
+var score=0\'a0;\
+var txt = PIXI.Texture.fromImage('canard.png');\
+var TabCanard=[]\
+for(var i=0;i<200;i++)\
+\{\
+	var c=createSprite(txt,rand(0,1000),rand(0,1000)\'a0;\
+	c.on('pointerdown', function () \{\
+		score+=10\'a0;\
+		this.x=rand(-10,1000)\'a0; // on replace le canard\
+		this.y=rand(-10,1000)\'a0;\
+    		\});\
+	TabCanard.push(c)\'a0;\
+\}\
+\
+\pard\pardeftab708\ri-386
+
+\b\fs36 \cf0 \
+\
+\pard\pardeftab708\ri-386
+
+\b0\fs20 \cf0 	\
+	var txtScore;\
+            function majScore()\
+            \{\
+                if (txtScore !== undefined)\
+                \{\
+                    app.stage.removeChild(txtScore);\
+                \}\
+                txtScore = new PIXI.Text("score : " + score);\
+                txtScore.x = 50;\
+                txtScore.y = 50;\
+                app.stage.addChild(txtScore);\
+            \}\
+\
+            var score = 0;\
+\
+\
+\
+<!DOCTYPE html>\
+<html>\
+    <head>\
+        <title>Tir au canard !</title>\
+        <meta charset="UTF-8">\
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">\
+        <script src="pixi.min.js"></script>\
+        <script>\
+            function rand(min, max)\
+            \{\
+                return Math.floor(Math.random() * (max - min + 1) + min);\
+            \}\
+\
+            function createSprite(txt, x, y, sprite)\
+            \{\
+                sprite = new PIXI.Sprite(txt);\
+                sprite.x = x;\
+                sprite.y = y;\
+                sprite.interactive = true\'a0;\
+                app.stage.addChild(sprite);\
+                return sprite;\
+            \}\
+\
+            var txtScore;\
+            function majScore()\
+            \{\
+                if (txtScore !== undefined)\
+                \{\
+                    app.stage.removeChild(txtScore);\
+                \}\
+                txtScore = new PIXI.Text("score : " + score);\
+                txtScore.x = 50;\
+                txtScore.y = 50;\
+                app.stage.addChild(txtScore);\
+            \}\
+\
+            var score = 0;\
+            function initGFX()\
+            \{\
+                majScore();\
+                var TabCanard = [];\
+                var txt = PIXI.Texture.fromImage('canard.png');\
+                for (var i = 0; i < 200; i++)\
+                \{\
+                    var c = createSprite(txt, rand(0, 1000), rand(0, 1000))\'a0;\
+                    c.on('pointerdown', function () \{\
+                        score += 10\'a0;\
+                        majScore();\
+                        this.x = rand(-100, 10)\'a0;\
+                        this.y = rand(0, 1000)\'a0;\
+                    \});\
+                    TabCanard.push(c)\'a0;\
+                \}\
+                var debutb = +new Date(); // TIPS\'a0! + permet de transformer directement en nombre\
+                app.ticker.add(function ()\
+                \{\
+                    var d = +new Date() - debutb;\
+                    if (d > 50 && TabCanard.length > 0)\
+                    \{\
+                        var aux = TabCanard.pop();\
+                        app.stage.removeChild(aux);\
+                    \}\
+                    for (var i = 0; i < TabCanard.length; i++)\
+                    \{\
+                        var c = TabCanard[i];\
+                        c.x = c.x + rand(0, 4);  // le canard va de gauche \'e0 droite\
+                        c.y = c.y - rand(-2, 2);  // et flottille un peu, pour \'e9viter le chasseur\
+                        if (c.x > 1000)\
+                        \{ // le canard a disparu, on l'affiche \'e0 l'\'e9cran\'a0!\
+                            c.x = rand(-100, 10);\
+                            c.y = rand(0, 1000);\
+                        \}\
+                    \}\
+                    debutb = +new Date();\
+                \});\
+            \}\
+\
+            var w = 1000;\
+            var h = 1000;\
+            document.addEventListener("DOMContentLoaded", ready); // on attend que tout sois pr\'eat\
+\
+            var app\'a0; // global\'a0!\
+            function ready()\
+            \{\
+                app = new PIXI.Application(\{width: w, height: h\});\
+                app.renderer.backgroundColor = 0xaaaaaa\'a0;\
+                document.body.appendChild(app.view);\
+                initGFX();\
+            \}\
+        </script>\
+        <style>\
+            body, html \{\
+                height: 100%;\
+                display: grid;\
+                border: 0px;\
+                margin: 0px;\
+            \}\
+\
+            canvas \{\
+                margin: auto;\
+            \}\
+        </style>\
+    </head>\
+    <body>\
+    </body>\
+</html>\
+\
+\pard\pardeftab708\ri-386\sl288\slmult1\sa140
+\cf0 \
+\
+\
+    var w = window.innerWidth;\
+    var h = window.innerHeight;\
+    app = new PIXI.Application(\{width: w, height: h\});\
+    w = Math.min(w, 1000);\
+    h = Math.min(h, 1000);\
+    app.stage.scale.x = w / 1000;\
+    app.stage.scale.y = h / 1000;\
+    var el = document.querySelector('canvas');\
+    el.setAttribute('width', w + "px");\
+    el.setAttribute('height', h + "px");\
+\
+\
+document.addEventListener("DOMContentLoaded", phone);\
+var isPhone=false\'a0;\
+function phone()\
+\{\
+    if (document.location.protocol === 'file:')\
+    \{\
+        isPhone = true;\
+        document.addEventListener("deviceready", ready, false);\
+    \} else\
+    \{\
+        ready();\
+    \}\
+\}\
+function ready()\
+\{\
+// i\'e7i votre jeu\
+\}\
+}
